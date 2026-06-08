@@ -1,24 +1,44 @@
 package shoppingcart;
+
 import products.Product;
 
 public class CartLine {
-	int q;
-	Product p;
 
-	public Product getP() {
-		return p;
+	private final Product product;
+	private int quantity;
+
+	public CartLine(Product product, int quantity) {
+		this.product = product;
+		this.quantity = quantity;
 	}
 
-	public void setP(Product p) {
-		this.p = p;
+	public Product getProduct() {
+		return product;
 	}
 
-	public int getQ() {
-		return q;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQ(int q) {
-		this.q = q;
+	public void increaseQuantity() {
+		quantity++;
 	}
 
+	public void decreaseQuantity() {
+		if (quantity > 0) {
+			quantity--;
+		}
+	}
+
+	public boolean hasProduct(Product otherProduct) {
+		return product.getProductNumber().equals(otherProduct.getProductNumber());
+	}
+
+	public boolean isEmpty() {
+		return quantity == 0;
+	}
+
+	public double calculateSubtotal() {
+		return product.getPrice() * quantity;
+	}
 }
