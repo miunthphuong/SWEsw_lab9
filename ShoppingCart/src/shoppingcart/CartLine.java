@@ -8,6 +8,14 @@ public class CartLine {
 	private int quantity;
 
 	public CartLine(Product product, int quantity) {
+		if (product == null) {
+			throw new IllegalArgumentException("Product is required.");
+		}
+
+		if (quantity <= 0) {
+			throw new IllegalArgumentException("Quantity must be greater than zero.");
+		}
+
 		this.product = product;
 		this.quantity = quantity;
 	}
@@ -25,20 +33,23 @@ public class CartLine {
 	}
 
 	public void decreaseQuantity() {
-		if (quantity > 0) {
-			quantity--;
-		}
+		quantity--;
 	}
 
-	public boolean hasProduct(Product otherProduct) {
-		return product.getProductNumber().equals(otherProduct.getProductNumber());
+	public boolean contains(Product otherProduct) {
+		return product.equals(otherProduct);
 	}
 
-	public boolean isEmpty() {
+	public boolean hasNoItems() {
 		return quantity == 0;
 	}
 
 	public double calculateSubtotal() {
 		return product.getPrice() * quantity;
+	}
+
+	@Override
+	public String toString() {
+		return quantity + " " + product;
 	}
 }
